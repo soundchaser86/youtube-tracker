@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Channel;
+use App\Services\ChannelService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -22,5 +24,14 @@ class ChannelFactory extends Factory
             'name' => fake()->company(),
             'views_first_hour_median' => rand(100, 10000),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterMaking(function (Channel $channel) {
+            //
+        })->afterCreating(function (Channel $channel) {
+            resolve(ChannelService::class)->updateViewsFirstHourMedian($channel);
+        });
     }
 }
