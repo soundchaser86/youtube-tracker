@@ -19,7 +19,7 @@ class ChannelFactory extends Factory
     {
         return [
             'youtube_id' => Str::random(24),
-            'name' => fake()->sentence(),
+            'name' => fake()->company(),
             'views_first_hour_median' => rand(100, 10000),
         ];
     }
