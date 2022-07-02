@@ -9,6 +9,8 @@ class VideoStatistic extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $casts = [
         'views' => 'integer',
         'views_first_hour' => 'integer',
