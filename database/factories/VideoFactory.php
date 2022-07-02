@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Channel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -19,6 +20,7 @@ class VideoFactory extends Factory
     {
         return [
             'youtube_id' => Str::random(11),
+            'channel_id' => Channel::factory(),
             'name' => fake()->sentence(),
             'duration' => rand(60, 5400),
             'upload_date' => fake()->dateTimeBetween('-30 days')->format('Y-m-d H:i:s'),
