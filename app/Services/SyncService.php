@@ -7,24 +7,28 @@ use App\Interfaces\ChannelRepositoryInterface;
 use App\Interfaces\VideoRepositoryInterface;
 use App\Interfaces\YoutubeClientInterface;
 use App\Models\Video;
+use Grpc\Channel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class SyncService
 {
     private YoutubeClientInterface $client;
+    private ChannelService $channelService;
     private VideoService $videoService;
     private ChannelRepositoryInterface $channelRepository;
     private VideoRepositoryInterface $videoRepository;
 
     public function __construct(
         YoutubeClientInterface     $client,
+        ChannelService             $channelService,
         VideoService               $videoService,
         ChannelRepositoryInterface $channelRepository,
         VideoRepositoryInterface   $videoRepository
     )
     {
         $this->client = $client;
+        $this->channelService = $channelService;
         $this->videoService = $videoService;
         $this->channelRepository = $channelRepository;
         $this->videoRepository = $videoRepository;
@@ -51,6 +55,8 @@ class SyncService
 
                     DB::commit();
                 }
+
+                $this->channelService->updateViewsFirstHourMedian($channelExisting);
             }
 
             logger('YouTube sync successful!');
