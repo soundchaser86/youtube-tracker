@@ -7,7 +7,6 @@ use App\Interfaces\ChannelRepositoryInterface;
 use App\Interfaces\VideoRepositoryInterface;
 use App\Interfaces\YoutubeClientInterface;
 use App\Models\Video;
-use Grpc\Channel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
