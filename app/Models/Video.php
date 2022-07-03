@@ -12,6 +12,14 @@ class Video extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'youtube_id',
+        'channel_id',
+        'name',
+        'duration',
+        'upload_date',
+    ];
+
     protected $casts = [
         'duration' => 'integer',
     ];

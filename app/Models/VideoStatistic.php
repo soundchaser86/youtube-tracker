@@ -11,6 +11,15 @@ class VideoStatistic extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'video_id',
+        'views',
+        'views_first_hour',
+        'likes',
+        'dislikes',
+        'comment_count',
+    ];
+
     protected $casts = [
         'views' => 'integer',
         'views_first_hour' => 'integer',

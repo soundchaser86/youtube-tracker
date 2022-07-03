@@ -2,9 +2,8 @@
 
 namespace App\Interfaces;
 
-use Illuminate\Support\Collection;
-
 interface ChannelRepositoryInterface
 {
-    public function getAllWithVideos(): Collection;
+    public function getAllWithVideos();
+    public function getByYoutubeId(string $youtubeId);
 }

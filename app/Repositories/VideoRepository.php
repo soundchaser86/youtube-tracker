@@ -12,4 +12,14 @@ class VideoRepository implements VideoRepositoryInterface
     {
         return Video::paginate(20);
     }
+
+    public function getByYoutubeId(string $youtubeId): ?Video
+    {
+        return Video::where('youtube_id', $youtubeId)->first();
+    }
+
+    public function create(array $data): Video
+    {
+        return Video::create($data);
+    }
 }

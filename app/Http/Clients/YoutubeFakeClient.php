@@ -19,6 +19,11 @@ class YoutubeFakeClient implements YoutubeClientInterface
     {
         $response = Http::get($this->baseUrl . '/api/v1/videos');
 
-        return json_decode($response->body(), true);
+        if ($response->ok()) {
+            return json_decode($response->body(), true);
+        } else {
+            logger()->error('Error fetching channel data from YouTube!');
+            return [];
+        }
     }
 }

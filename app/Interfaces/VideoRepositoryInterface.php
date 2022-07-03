@@ -2,9 +2,9 @@
 
 namespace App\Interfaces;
 
-use Illuminate\Pagination\LengthAwarePaginator;
-
 interface VideoRepositoryInterface
 {
-    public function getAll(): LengthAwarePaginator;
+    public function getAll();
+    public function getByYoutubeId(string $youtubeId);
+    public function create(array $data);
 }
