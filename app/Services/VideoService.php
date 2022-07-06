@@ -24,9 +24,9 @@ class VideoService
         $this->videoStatisticRepository = $videoStatisticRepository;
     }
 
-    public function getAll(): LengthAwarePaginator
+    public function getAll(array $filter): LengthAwarePaginator
     {
-        return $this->videoRepository->getAll();
+        return $this->videoRepository->getAll($filter);
     }
 
     public function create(Channel $channel, array $data): void

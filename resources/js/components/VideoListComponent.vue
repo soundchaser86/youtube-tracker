@@ -1,4 +1,9 @@
 <template>
+    <div>
+        <input v-model="filterName" @keyup.enter="getAll()"/>
+        <button v-on:click="getAll()">Search</button>
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -16,7 +21,7 @@
         </tbody>
     </table>
 
-    <Pagination :data="data" @pagination-change-page="getAll" />
+    <Pagination :data="data" @pagination-change-page="getAll"/>
 </template>
 
 <script>
@@ -29,12 +34,24 @@ export default {
     data() {
         return {
             data: {},
+            filterName: null,
         }
     },
     methods: {
         getAll(page = 1) {
+            let filter = {};
+            let filterString = '';
+
+            if (this.filterName) {
+                filter.name = this.filterName;
+            }
+
+            for (let key in filter) {
+                filterString += '&' + key + '=' + filter[key];
+            }
+
             this.axios
-                .get('http://youtube-tracker.test/videos/getAll?page=' + page)
+                .get('http://youtube-tracker.test/videos/getAll?page=' + page + filterString)
                 .then(response => {
                     this.data = response.data;
                 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\VideoService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 
 class VideoController extends Controller
@@ -22,7 +23,9 @@ class VideoController extends Controller
 
     public function getAll(): JsonResponse
     {
-        $videos = $this->videoService->getAll();
+        $filter = Arr::only(request()->all(), ['name']);
+
+        $videos = $this->videoService->getAll($filter);
 
         return response()->json($videos);
     }

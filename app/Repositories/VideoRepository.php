@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class VideoRepository implements VideoRepositoryInterface
 {
-    public function getAll(): LengthAwarePaginator
+    public function getAll(array $filter): LengthAwarePaginator
     {
         return DB::table('videos AS v')
             ->join('channels AS c', 'c.id', '=', 'v.channel_id')
             ->join('video_statistics AS vs', 'v.id', '=', 'vs.video_id')
-            ->where('vs.views_first_hour', '>', 0)
+            ->when(isset($filter['name']), function ($query) use ($filter) {
+                $query->where('v.name', 'like', '%' . $filter['name'] . '%');
+            })
             // order by performance
             ->orderByRaw('((c.views_first_hour_median + 0.0001) / (vs.views_first_hour + 0.0001)) ASC')
             ->orderBy('v.name')
