@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\VideoService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class VideoController extends Controller
@@ -16,8 +17,13 @@ class VideoController extends Controller
 
     public function index(): View
     {
+        return view('video.index');
+    }
+
+    public function getAll(): JsonResponse
+    {
         $videos = $this->videoService->getAll();
 
-        return view('video.index', compact('videos'));
+        return response()->json($videos);
     }
 }
