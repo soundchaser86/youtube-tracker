@@ -15,7 +15,8 @@ class VideoRepository implements VideoRepositoryInterface
             ->join('channels AS c', 'c.id', '=', 'v.channel_id')
             ->join('video_statistics AS vs', 'v.id', '=', 'vs.video_id')
             ->where('vs.views_first_hour', '>', 0)
-            ->orderByRaw('(c.views_first_hour_median + vs.views_first_hour) DESC') // by performance
+            // order by performance
+            ->orderByRaw('((c.views_first_hour_median + 0.0001) / (vs.views_first_hour + 0.0001)) ASC')
             ->orderBy('v.name')
             ->select([
                 'v.name AS name',
