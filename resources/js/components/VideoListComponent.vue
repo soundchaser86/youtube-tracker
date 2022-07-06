@@ -51,7 +51,7 @@ export default {
             }
 
             this.axios
-                .get('http://youtube-tracker.test/videos/getAll?page=' + page + filterString)
+                .get('/videos/getAll?page=' + page + filterString)
                 .then(response => {
                     this.data = response.data;
                 });

@@ -19613,7 +19613,7 @@ __webpack_require__.r(__webpack_exports__);
         filterString += '&' + key + '=' + filter[key];
       }
 
-      this.axios.get('http://youtube-tracker.test/videos/getAll?page=' + page + filterString).then(function (response) {
+      this.axios.get('/videos/getAll?page=' + page + filterString).then(function (response) {
         _this.data = response.data;
       });
     }
