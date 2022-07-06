@@ -6,10 +6,18 @@ use App\Models\Channel;
 use App\Models\Video;
 use App\Models\VideoStatistic;
 use App\Models\VideoTag;
+use App\Services\ChannelService;
 use Illuminate\Database\Seeder;
 
 class ChannelSeeder extends Seeder
 {
+    private ChannelService $channelService;
+
+    public function __construct(ChannelService $channelService)
+    {
+        $this->channelService = $channelService;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -17,7 +25,7 @@ class ChannelSeeder extends Seeder
      */
     public function run()
     {
-        Channel::factory()
+        $channels = Channel::factory()
             ->count(5)
             ->has(
                 Video::factory()
@@ -26,5 +34,9 @@ class ChannelSeeder extends Seeder
                     ->has(VideoTag::factory()->count(5), 'tags')
             )
             ->create();
+
+        foreach ($channels as $channel) {
+            $this->channelService->updateViewsFirstHourMedian($channel);
+        }
     }
 }
