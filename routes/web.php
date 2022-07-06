@@ -20,4 +20,5 @@ Route::get('/', function () {
 
 Route::prefix('videos')->name('videos.')->group(function () {
     Route::get('all', [VideoController::class, 'index'])->name('all');
+    Route::get('getAll', [VideoController::class, 'getAll'])->name('getAll');
 });
